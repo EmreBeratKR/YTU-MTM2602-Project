@@ -4,12 +4,12 @@
 #include "data_types.h"
 
 // ==================== WRITE YOUR OPTIONAL COMMANDS ===========================
-#define CITY_NUMBER  20
+#define TILE_NUMBER  4
 
 // ========  YOUR COMPULSORY (BUT SPECIFIC TO THE PROBLEM) COMMANDS ============ 
-#define PREDETERMINED_GOAL_STATE  1 // User will initially determine the goal state if it is true (1)
-#define ACTIONS_NUMBER  20          // The number of all possible actions
-#define MAX_SEARCHED_NODE 100000000 // exit from the search process if it is exceeded  
+#define PREDETERMINED_GOAL_STATE   1              // User will initially determine the goal state if it is true (1)
+#define ACTIONS_NUMBER             TILE_NUMBER    // The number of all possible actions
+#define MAX_SEARCHED_NODE          100000000      // exit from the search process if it is exceeded  
 
 // ================== YOU DO NOT NEED TO CHANGE THIS PART ======================
 #define NO_ACTION  0

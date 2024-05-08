@@ -14,16 +14,16 @@
 //___________________ Create unique char key for each state______________________
 void Generate_HashTable_Key(const State *const state, unsigned char* key) 
 {
-	int temp_city = state->city, i=0;
+	int tile = state->tile, i=0;
 	
-	if(temp_city == 0){
+	if(tile == 0){
 		key[0] = '0';
 		key[1] = '\0';
 	}
 	else{
-		for(i=0; temp_city>0; i++){
-			key[i] = temp_city%10 + '0';
-			temp_city /= 10;
+		for(i=0; tile>0; i++){
+			key[i] = tile%10 + '0';
+			tile /= 10;
 		}
 		key[i] = '\0';
 	}
