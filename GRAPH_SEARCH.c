@@ -2,9 +2,12 @@
 #include <stdlib.h>
 #include "GRAPH_SEARCH.h"
 #include "data_types.h"
+#include "map_loader.h"
 
 int main()
 {	
+    load_map();
+
     Node root, *goal;
     State *goal_state = NULL;
     enum METHODS method;

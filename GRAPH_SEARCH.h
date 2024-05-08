@@ -2,13 +2,12 @@
 #define TREE_SERACH_H
 
 #include "data_types.h"
+#include "map_loader.h"
 
 // ==================== WRITE YOUR OPTIONAL COMMANDS ===========================
-#define TILE_NUMBER  4
 
 // ========  YOUR COMPULSORY (BUT SPECIFIC TO THE PROBLEM) COMMANDS ============ 
 #define PREDETERMINED_GOAL_STATE   1              // User will initially determine the goal state if it is true (1)
-#define ACTIONS_NUMBER             TILE_NUMBER    // The number of all possible actions
 #define MAX_SEARCHED_NODE          100000000      // exit from the search process if it is exceeded  
 
 // ================== YOU DO NOT NEED TO CHANGE THIS PART ======================
@@ -21,8 +20,8 @@
 // =========  YOUR COMPULSORY (BUT SPECIFIC TO THE PROBLEM) DECLARATIONS =======
 State* Create_State();
 void Print_State(const State *const state);
-void Print_Action(const enum ACTIONS action);
-int Result(const State *const parent_state, const enum ACTIONS action, Transition_Model *const trans_model);
+void Print_Action(const ACTIONS action);
+int Result(const State *const parent_state, const ACTIONS action, Transition_Model *const trans_model);
 float Compute_Heuristic_Function(const State *const state, const State *const goal); 
 int Goal_Test(const State *const state, const State *const goal_state);
 
@@ -30,7 +29,7 @@ int Goal_Test(const State *const state, const State *const goal_state);
 Node* First_GoalTest_Search_TREE(const enum METHODS method, Node *const root, State *const goal_state);
 Node* First_InsertFrontier_Search_TREE(const enum METHODS method, Node *const root, State *const goal_state, float alpha); // Update for THE GENERALIZED A* 
 Node* DepthType_Search_TREE(const enum METHODS method, Node *const root, State *const goal_state, const int Max_Level);
-Node* Child_Node(Node *const parent, const enum ACTIONS action); 
+Node* Child_Node(Node *const parent, const ACTIONS action); 
 Queue* Start_Frontier(Node *const root);
 int Empty(const Queue *const frontier);
 Node* Pop(Queue **frontier);

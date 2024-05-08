@@ -3,24 +3,15 @@
 
 // ==================== WRITE YOUR OPTIONAL DATA TYPES IF YOU NEED =============
 
-enum Tile 
-{
-	A1, A2,
-    B1, B2
-};
-
+typedef int Tile;
 
 // ====== WRITE YOUR COMPULSORY (BUT SPECIFIC TO THE PROBLEM) DATA TYPES =======
 
-enum ACTIONS // All possible actions
-{
-	Go_A1, Go_A2,
-    Go_B1, Go_B2
-};
+typedef int ACTIONS; // All possible actions
 
 typedef struct State  
 {
-    enum Tile tile;
+    Tile tile;
     float h_n;   // Heuristic function
       
 }State;
@@ -45,7 +36,7 @@ typedef struct Node
 {
     State state;
     float path_cost;
-    enum ACTIONS action; //The action applied to the parent to generate this node
+    ACTIONS action; //The action applied to the parent to generate this node
     struct Node *parent;
     int Number_of_Child; // required for depth-first search algorithms
 }Node;

@@ -19,7 +19,7 @@ Node* First_InsertFrontier_Search_TREE(const enum METHODS method, Node *const ro
     int Number_Searched_Nodes  = 0;  // The number of nodes passing goal test
 	int Number_Generated_Nodes = 1;  // The number of generated nodes (The first one is the root)  
 	int Number_Allocated_Nodes = 1;  // The number of nodes in memory (The first one is the root)
-	enum ACTIONS action;
+	ACTIONS action;
     Node *node, *child, *temp_node; 
     Queue *frontier;
     Hash_Table *explorer_set;
@@ -115,7 +115,7 @@ Node* First_GoalTest_Search_TREE(const enum METHODS method, Node *const root, St
     int Number_Searched_Nodes  = 0;  // The number of nodes passing goal test
 	int Number_Generated_Nodes = 1;  // The number of generated nodes (The first one is the root)  
 	int Number_Allocated_Nodes = 1;  // The number of nodes in memory (The first one is the root)
-	enum ACTIONS action;
+	ACTIONS action;
     Node *node, *child; 
     Queue *frontier;
     Hash_Table *explorer_set; 
@@ -194,7 +194,7 @@ Node* DepthType_Search_TREE(const enum METHODS method, Node *const root, State *
     static int Number_Searched_Nodes  = 0;  // The number of nodes passing goal test
 	static int Number_Generated_Nodes = 1;  // The number of generated nodes (The first one is the root) 
 	static int Number_Allocated_Nodes = 1;  // The number of nodes in memory (The first one is the root)   
-	enum ACTIONS action;
+	ACTIONS action;
     Node *node, *child; 
     Queue *frontier;
     Hash_Table *explorer_set; 
@@ -272,7 +272,7 @@ Node* DepthType_Search_TREE(const enum METHODS method, Node *const root, State *
 
 
 //______________________________________________________________________________
-Node* Child_Node(Node *const parent, const enum ACTIONS action)
+Node* Child_Node(Node *const parent, const ACTIONS action)
 {
       Node *child = NULL;
       Transition_Model trans_model;

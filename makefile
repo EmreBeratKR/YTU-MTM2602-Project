@@ -1,6 +1,6 @@
 CC = gcc
 CFLAGS = -Wall -g
-SRCS = GRAPH_SEARCH.c HashTable.c SpecificToProblem.c Standart_Search.c
+SRCS = GRAPH_SEARCH.c HashTable.c SpecificToProblem.c Standart_Search.c map_loader.c
 TARGET = program.exe
 
 $(TARGET): $(SRCS)

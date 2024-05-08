@@ -7,13 +7,14 @@
 */
 
 
-#define INF 999999
+#include <stdio.h>
+#include <stdlib.h>
 
 
 #include "GRAPH_SEARCH.h"
 #include "data_types.h"
-#include <stdio.h>
-#include <stdlib.h>
+#include "map_loader.h" 
+
 
 //______________________________________________________________________________
 State* Create_State()
@@ -22,7 +23,7 @@ State* Create_State()
     if(state==NULL)
     	Warning_Memory_Allocation(); 
    
-   	for(state->tile=A1; state->tile<=B2; state->tile++){        
+   	for(state->tile=0; state->tile<TILE_NUMBER; state->tile++){        
     	printf("%d --> ", state->tile);
         Print_State(state);
         printf("\n");
@@ -31,7 +32,7 @@ State* Create_State()
    	do{ 
     	printf("Enter the code of the state: ");
         scanf("%d", &state->tile);
-   	}while(state->tile<0 && state->tile>=TILE_NUMBER);
+   	}while(state->tile<0 && state->tile>TILE_NUMBER);
 	       
     return state;    
 }
@@ -39,60 +40,34 @@ State* Create_State()
 //______________________________________________________________________________
 void Print_State(const State *const state)
 {
-    switch(state->tile){
-         case  A1:      printf("A1"); break;
-         case  A2:      printf("A2"); break;
-         case  B1:      printf("B1"); break;
-         case  B2:      printf("B2"); break;
-    }  
+    print_tile(state->tile);
 }
 
 //______________________________________________________________________________
-void Print_Action(const enum ACTIONS action)
+void Print_Action(const ACTIONS action)
 {
-   switch(action){
-         case  Go_A1:      printf("Go_A1"); break;
-         case  Go_A2:      printf("Go_A2"); break;
-         case  Go_B1:      printf("Go_B1"); break;
-         case  Go_B2:      printf("Go_B2"); break;
-    }        
+    print_action(action);      
 }
 
 //______________________________________________________________________________
-int Result(const State *const parent_state, const enum ACTIONS action, Transition_Model *const trans_model)
+int Result(const State *const parent_state, const ACTIONS action, Transition_Model *const trans_model)
 {
     State new_state;
-	const int PATH_COSTS[TILE_NUMBER][ACTIONS_NUMBER] = 
-        {   {   0,    5,    1,   -1  },  // A1
-            {   5,    0,   -1,  INF  },  // A2
-            {   1,   -1,    0,  INF  },  // B1
-            {  -1,  INF,  INF,    0  },  // B2
-		};
-	     //    A1  A2  B1  B2    
 	 
-         if(PATH_COSTS[parent_state->tile][action]<=0) 
-              return FALSE;
-         else{
-              new_state.tile = action;
-              trans_model->new_state = new_state;
-              trans_model->step_cost = PATH_COSTS[parent_state->tile][action]; 
-         }     
-         return TRUE;                                               
+    if(PATH_COSTS[parent_state->tile][action]<=0) 
+        return FALSE;
+    else{
+        new_state.tile = action;
+        trans_model->new_state = new_state;
+        trans_model->step_cost = PATH_COSTS[parent_state->tile][action]; 
+    }     
+    return TRUE;                                               
 }
 
 //______________________________________________________________________________
 float Compute_Heuristic_Function(const State *const state, const State *const goal)
-{
-      const float sqrt2 = 1.4142f;
-      const float SLD[TILE_NUMBER][TILE_NUMBER] =
-        {   {      0,      1,      1,  sqrt2  },  // A1
-            {      1,      0,  sqrt2,      1  },  // A2
-            {      1,  sqrt2,      0,      1  },  // B1
-            {  sqrt2,      1,      1,      0  },  // B2
-		};
-	     //    A1  A2  B1  B2
-         
-        return SLD[state->tile][goal->tile];   
+{         
+    return SLD[state->tile][goal->tile];   
 }
 
 //_______________ Update if your goal state is not determined initially ___________________________________

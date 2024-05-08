@@ -3,6 +3,13 @@
         "stdlib.h": "c",
         "stdio.h": "c",
         "math.h": "c",
-        "string.h": "c"
+        "string.h": "c",
+        "map_loader.h": "c",
+        "type_traits": "c",
+        "xtr1common": "c",
+        "xutility": "c",
+        "xmemory": "c",
+        "xtree": "c",
+        "cstdlib": "c"
     }
 }
