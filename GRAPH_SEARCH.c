@@ -84,6 +84,9 @@ int main()
 
     Show_Solution_Path(goal);
   	
+    printf("\nPress any key to exit...\n");
+    getch();
+
     return 0;
 }
 
