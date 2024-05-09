@@ -7,7 +7,7 @@
 #include "map_loader.h"
 
 
-#define MAP_FILE_PATH "map.txt"
+#define MAP_FILE_PATH "map_builder/map.txt"
 #define INF 999999
 
 #define TILE_PLAIN 0
