@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include "GRAPH_SEARCH.h"
 #include "data_types.h"
 #include "map_loader.h"
@@ -49,6 +50,8 @@ int main()
 	    goal_state = Create_State();
     }
     
+    clock_t t = clock(); 
+
     if(method==GreedySearch || method==AStarSearch || method==GeneralizedAStarSearch){
         root.state.h_n  = Compute_Heuristic_Function(&(root.state), goal_state);
         if(PREDETERMINED_GOAL_STATE)
@@ -84,6 +87,10 @@ int main()
 
     Show_Solution_Path(goal);
   	
+    t = clock() - t; 
+    double time_taken = ((double)t)/CLOCKS_PER_SEC;
+
+    printf("\nTakes %lf seconds.", time_taken);
     printf("\nPress any key to exit...\n");
     getch();
 
