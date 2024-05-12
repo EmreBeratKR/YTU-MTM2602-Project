@@ -16,7 +16,7 @@ build:
 	@$(NAME).exe
 
 run:
-	@dist/$(NAME).exe
+	@$(NAME).exe
 
 clean:
 	@$(call RM_DIR, build)
