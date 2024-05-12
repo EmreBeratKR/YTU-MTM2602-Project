@@ -174,6 +174,8 @@ class ButtonGrid(QWidget):
             for i in range(len(all)):
                 for j in range(len(all[i])):
                     self.map[(i, j)] = all[i][j]
+            self.rows = len(all)
+            self.cols = len(all[0])
         except:
             print("Could not import the save!")
 
