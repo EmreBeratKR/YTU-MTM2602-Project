@@ -84,8 +84,8 @@ Node* First_InsertFrontier_Search_TREE(const enum METHODS method, Node *const ro
                         Insert_Priority_Queue_A_Star(child, &frontier); break; 
 					case GeneralizedAStarSearch:
                     	if (temp_node != NULL) {
-							float child_cost = child->path_cost + alpha * child->state.h_n;
-							float temp_node_cost = temp_node->path_cost + alpha * temp_node->state.h_n;
+							float child_cost = alpha * child->path_cost + (1 - alpha) * child->state.h_n;
+							float temp_node_cost = alpha * temp_node->path_cost + (1 - alpha) * temp_node->state.h_n;
 							if (child_cost < temp_node_cost)
 								Remove_Node_From_Frontier(temp_node, &frontier);
 							else
