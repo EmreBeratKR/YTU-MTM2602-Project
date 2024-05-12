@@ -83,17 +83,14 @@ Node* First_InsertFrontier_Search_TREE(const enum METHODS method, Node *const ro
                         child->state.h_n = Compute_Heuristic_Function(&(child->state), goal_state); 
                         Insert_Priority_Queue_A_Star(child, &frontier); break; 
 					case GeneralizedAStarSearch:
-                    	if (temp_node != NULL) {
-							float child_cost = alpha * child->path_cost + (1 - alpha) * child->state.h_n;
-							float temp_node_cost = alpha * temp_node->path_cost + (1 - alpha) * temp_node->state.h_n;
-							if (child_cost < temp_node_cost)
-								Remove_Node_From_Frontier(temp_node, &frontier);
-							else
-								continue;
-						}
-						child->state.h_n = Compute_Heuristic_Function(&(child->state), goal_state);
-						Insert_Priority_Queue_GENERALIZED_A_Star(child, &frontier, alpha);
-						break;	    
+                    	if(temp_node!=NULL){
+							if(alpha * child->path_cost + (1.0f - alpha) * child->state.h_n < alpha * temp_node->path_cost + (1.0f - alpha) * temp_node->state.h_n) // child.STATE has been in frontier with higher cost
+								Remove_Node_From_Frontier(temp_node, &frontier);	
+							else // child.STATE has already been in frontier with lower cost 
+							    continue;	
+						} 
+                        child->state.h_n = Compute_Heuristic_Function(&(child->state), goal_state); 
+                        Insert_Priority_Queue_GENERALIZED_A_Star(child, &frontier, alpha); break;     
                     default:
                         printf("ERROR: Unknown method in First_InsertFrontier_Search_TREE.\n");
 						Delete_Hash_Table(explorer_set);  
@@ -467,38 +464,32 @@ void Insert_Priority_Queue_GENERALIZED_A_Star(Node *const child, Queue **frontie
 {  
     Queue *temp_queue;  
     Queue *new_queue = (Queue*)malloc(sizeof(Queue));
-    if(new_queue == NULL)
+    if(new_queue==NULL)
         Warning_Memory_Allocation(); 
         
-    new_queue->node = child;
+	new_queue->node = child;
 	 
     if(Empty(*frontier)){
         new_queue->next = NULL;                 
-        *frontier = new_queue; 
+	 	*frontier = new_queue; 
     }
-    else { // If frontier is not empty, find appropriate element according to the generalized evaluation function values. 
-        float child_cost = child->path_cost + alpha * child->state.h_n; // Compute the generalized cost for the child node
-
-        if(child_cost < ((*frontier)->node->path_cost + alpha * (*frontier)->node->state.h_n)) {
-            // Child has the lowest generalized cost
-            new_queue->next = *frontier;
+	else{ // If frontier is not empty, find appropriate element according to ordered evaluation function values. 
+	    if(alpha * child->path_cost + (1.0f - alpha) * child->state.h_n < alpha * (*frontier)->node->path_cost + (1.0f - alpha) * (*frontier)->node->state.h_n) { // Child has the lowest cost evaluation function value
+	        new_queue->next = *frontier;
             *frontier = new_queue; 
         }
-        else {
-            for(temp_queue = *frontier; temp_queue->next != NULL; temp_queue = temp_queue->next) {
-                float queue_cost = temp_queue->next->node->path_cost + alpha * temp_queue->next->node->state.h_n;
-                if(child_cost < queue_cost) { 
-                    // Insert the child node before the next node in the frontier
-                    new_queue->next = temp_queue->next;   
-                    temp_queue->next = new_queue;
-                    return;
+        else{
+            for(temp_queue = *frontier; temp_queue->next != NULL; temp_queue = temp_queue->next){
+                if(alpha * child->path_cost + (1.0f - alpha) * child->state.h_n < alpha * temp_queue->next->node->path_cost + (1.0f - alpha) * temp_queue->next->node->state.h_n){ 
+                     new_queue->next = temp_queue->next;   
+                     temp_queue->next = new_queue;
+                     return;
                 }                                              
-            }
-            // If child has the highest generalized cost, insert it at the end of the frontier
+            } //If child has the highest evaluation function value
             temp_queue->next = new_queue;  
             new_queue->next = NULL;                       
         } 		
-    }
+	} 
 }
 //______________________________________________________________________________
 void Print_Frontier(Queue *const frontier)
