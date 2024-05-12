@@ -40,7 +40,12 @@ class ButtonGrid(QWidget):
         self.buttons.clear()
         self.buttons_dict = {}
 
+        for num in range(self.cols):
+            label = QLabel(f"<b>{str(num + 1)}</b>")
+            label.setAlignment(Qt.AlignCenter)
+            self.grid.addWidget(label, 0, num + 1)
         for i in range(self.rows):
+            self.grid.addWidget(QLabel(f"<b>{chr(65 + i)}</b>"), i + 1, 0)
             for j in range(self.cols):
                 button = QPushButton("")
                 size_policy = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
@@ -52,7 +57,7 @@ class ButtonGrid(QWidget):
                     self.button_click(i, j, self.map[(i, j)])
                 except:
                     self.button_click(i, j, 0)
-                self.grid.addWidget(button, i, j)
+                self.grid.addWidget(button, i + 1, j + 1)
                 self.buttons.append(button)
 
     def create_buttons(self):
