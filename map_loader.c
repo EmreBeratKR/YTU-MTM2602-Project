@@ -163,7 +163,19 @@ void load_map()
     {
         for (int j = 0; j < MAP_WIDTH * MAP_HEIGHT; j++) 
         {
-            printf("%f ", PATH_COSTS[i][j]);
+            if (PATH_COSTS[i][j] == INF)
+            {
+                printf(" INF,");
+                continue;
+            }
+
+            else if (PATH_COSTS[i][j] < 0)
+            {
+                printf("  -1,");
+                continue;
+            }
+
+            printf("   %d,", (int) PATH_COSTS[i][j]);
         }
         printf("\n");
     }
@@ -173,7 +185,7 @@ void load_map()
     {
         for (int j = 0; j < MAP_WIDTH * MAP_HEIGHT; j++) 
         {
-            printf("%f ", SLD[i][j]);
+            printf("%.2f ", SLD[i][j]);
         }
         printf("\n");
     }
